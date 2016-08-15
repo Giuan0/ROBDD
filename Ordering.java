@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 public class Ordering{
 
-    ArrayList<String> orderings = new ArrayList<String>();
+    ArrayList<String> orderings = new ArrayList<String>();// somente para o getMin
     Tree tree = new Tree();
     Operations op = new Operations();
 
@@ -47,15 +47,15 @@ public class Ordering{
         return minN;
     }
 
-    public Node window(String expression, String ordering, int window, String level){
-        ArrayList<String> windowList = Window.getResult(ordering, window, level);
+    public Node window(String expression, String ordering, int window, int level){
+        tree.setOrdering(ordering);
+        ArrayList<String> windowList = Window.getResult(ordering, window, tree.ordering.get(level));
         Node min = tree.generateG(expression);
         int minSize = op.count(min);
         for (String i : windowList ) {
             tree.setOrdering(i);
             Node root = tree.generateG(expression);
             int count = op.count(root);
-            System.out.println(i+" size - "+ count);
             if(count < minSize){
                 minSize = count;
                 min = root;
@@ -65,10 +65,9 @@ public class Ordering{
         return min;
     }
 
-    public Node window(String expression, int window, String level){
+    public Node window(String expression, int window, int level){
         tree.autoDeclareVariables(expression);
-        System.out.println(tree.getOrdering());
-        ArrayList<String> windowList = Window.getResult(tree.getOrdering(), window, level);
+        ArrayList<String> windowList = Window.getResult(tree.getOrdering(), window, tree.ordering.get(level));
         
         Node min = tree.generateG(expression);
         int minSize = op.count(min);
@@ -76,7 +75,6 @@ public class Ordering{
             tree.setOrdering(i);
             Node root = tree.generateG(expression);
             int count = op.count(root);
-            System.out.println(i+" size - "+ count);
             if(count < minSize){
                 minSize = count;
                 min = root;

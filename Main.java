@@ -7,23 +7,23 @@ public class Main{
 		Operations op = new Operations();
 		Ordering order = new Ordering();
 
-		String expression = "(!(SF0 + SF2) * !((SG1 * (SG2 + SG3)) + (SG2 * SG3)))*((SG3+SG4)+SG2)";
+		String expression = "(!(SF1 + SF2) * !((SG1 * (SG2 + SG3)) + (SG2 * SG3)))*((SG3+SG4)+SG2)";
 		Tree t = new Tree();
 		//t.setOrdering("x[1]<x[3]<x[5]<x[7]<x[9]<x[11]<x[13]<x[15]<x[17]<x[19]<x[21]<x[23]<x[2]<x[4]<x[6]<x[8]<x[10]<x[12]<x[14]<x[16]<x[18]<x[20]<x[22]<x[24]<");
-		//t.setOrdering(order.weighting(expression));
+		t.setOrdering(order.weighting(expression));
 
 		//Node root = order.getMin(expression);
-		Node root = t.generateG(expression);
-		for (String i : t.allReducedPaths(root) ) {
-			System.out.println(i);	
-		}
-		//root = order.weighting(expression);
+		//Node root = t.generateG(expression);
+		
 		//Node root = order.window(expression,4,"SF2");//SF1<SF2<SG1<SG2<SG3<SG4<
 		//System.out.println(root.bOrdering);
 		//System.out.println(t.getOrdering());
 		//System.out.println("size = "+op.count(root));
 		//System.out.println(root.expression);
-		//Node root = order.window(expression,4,"SF2");//SF1<SF2<SG1<SG2<SG3<SG4<
+		Node root = order.window(expression,t.getOrdering(),4,2);//SF1<SF2<SG1<SG2<SG3<SG4<
+		for (String i : t.allReducedPaths(root) ) {
+			System.out.println(i);	
+		}
 		System.out.println(root.bOrdering);
 		//System.out.println(t.getOrdering());
 		System.out.println("size = "+op.count(root));
