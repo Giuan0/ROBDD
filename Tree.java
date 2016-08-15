@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 import java.util.*;
-=======
->>>>>>> 3d485f38b5a2bf7978ad30fcc2b8f8a469ddc7ea
 import ITE.*;
 import java.util.ArrayList;
 public class Tree{
@@ -139,7 +136,6 @@ public class Tree{
 		return new ITE.Node(var,ordering.indexOf(var));
 	}
 
-<<<<<<< HEAD
 // metodos que pegam os caminhos#######################################################
 
 	public ArrayList<String> allPaths(int num){
@@ -204,6 +200,4 @@ public class Tree{
 //#######################################################################
 
 
-=======
->>>>>>> 3d485f38b5a2bf7978ad30fcc2b8f8a469ddc7ea
 }
