@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+import java.util.*;
+=======
+>>>>>>> 3d485f38b5a2bf7978ad30fcc2b8f8a469ddc7ea
 import ITE.*;
 import java.util.ArrayList;
 public class Tree{
@@ -135,4 +139,71 @@ public class Tree{
 		return new ITE.Node(var,ordering.indexOf(var));
 	}
 
+<<<<<<< HEAD
+// metodos que pegam os caminhos#######################################################
+
+	public ArrayList<String> allPaths(int num){
+		ArrayList<String> paths = new ArrayList<String>();
+		for (int i=0;i<(Math.pow(2,num));i++){
+	    	int mask = (int)(Math.pow(2,num));
+	    	String path = "";
+		    while (mask > 0){
+		        if ((mask & i) == 0){
+		            path+="0";
+		        } else {
+		            path+="1";
+		        }
+		        mask = mask >> 1;
+		    }
+		    paths.add(path.substring(1,path.length()));
+		    path = "";
+		}
+		return paths;
+	}
+
+
+	public String reducedPath(Node root, String path){
+		Node aux = root;
+		String reducedPath = "";
+		for (int i = 0;i<path.length() ;i++ ) {
+			if(aux.right == null){
+				reducedPath+=" ("+aux.data+")";
+				return reducedPath;
+			}
+			if(path.charAt(i) == '1'){
+				reducedPath+="1";
+				aux = aux.left;
+			}else{
+				reducedPath+="0";
+				aux = aux.right;			}
+		}
+		return "";
+	}
+
+
+
+
+	public ArrayList<String> allReducedPaths(Node root){
+		ArrayList<String> allPaths = allPaths(ordering.size());
+		ArrayList<String> allReducedPaths = new ArrayList<String>();
+		for (int i = 0; i<allPaths.size() ;i++ ) {
+			if(!(allReducedPaths.contains( reducedPath( root, allPaths.get(i) ))))
+				allReducedPaths.add( reducedPath( root, allPaths.get(i) ));
+		}
+
+		allReducedPaths.remove("");
+		Collections.sort(allReducedPaths, new Comparator<String>() {
+		    public int compare(String a, String b) {
+		        return Integer.compare(a.length(), b.length());
+		    }
+			});
+		return allReducedPaths;
+
+	}
+
+//#######################################################################
+
+
+=======
+>>>>>>> 3d485f38b5a2bf7978ad30fcc2b8f8a469ddc7ea
 }
