@@ -161,7 +161,7 @@ public class Tree{
 	public String reducedPath(Node root, String path){
 		Node aux = root;
 		String reducedPath = "";
-		for (int i = 0;i<path.length() ;i++ ) {
+		for (int i = 0;i<=path.length() ;i++ ) {
 			if(aux.right == null){
 				reducedPath+=" ("+aux.data+")";
 				return reducedPath;
@@ -173,7 +173,7 @@ public class Tree{
 				reducedPath+="0";
 				aux = aux.right;			}
 		}
-		return "";
+		return reducedPath;
 	}
 
 

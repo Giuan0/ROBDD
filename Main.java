@@ -7,7 +7,7 @@ public class Main{
 		Operations op = new Operations();
 		Ordering order = new Ordering();
 
-		String expression = "(!(SF1 + SF2) * !((SG1 * (SG2 + SG3)) + (SG2 * SG3)))*((SG3+SG4)+SG2)";
+		String expression = "((x1*x2) + (x3*x4) + (x5*x6) + (x7*x8))";
 		Tree t = new Tree();
 		//t.setOrdering("x[1]<x[3]<x[5]<x[7]<x[9]<x[11]<x[13]<x[15]<x[17]<x[19]<x[21]<x[23]<x[2]<x[4]<x[6]<x[8]<x[10]<x[12]<x[14]<x[16]<x[18]<x[20]<x[22]<x[24]<");
 		t.setOrdering(order.weighting(expression));
