@@ -17,32 +17,24 @@ public class Ordering{
     }
 
     public Node getMin(String expression){
-        System.out.println("##################################################");
+        tree = new Tree();
         Node root = tree.generateG(expression);
         root.bOrdering = tree.getOrdering();
         Node minN = root;
         int min = op.count(root);
         perm(tree.ordering.toArray(new String[tree.ordering.size()]),tree.ordering.size());
-        int totalPermutations = orderings.size();
         int count = 0;
-        double percentage = 2;
 
         for (String i : orderings ) {
-            count++;
-            if( Math.round( totalPermutations*(percentage/100) ) == count ){
-                System.out.print("#");
-                percentage +=2; 
-            }
             tree.setOrdering(i);
-            root = tree.generateG(expression);
             int n = op.count(root);
+            root = tree.generateG(expression);
             if(n<min){
                 min = n;
                 minN = root;
                 root.bOrdering = i;
             }
         }
-        System.out.println();
         orderings.clear();
         return minN;
     }
@@ -51,11 +43,13 @@ public class Ordering{
         tree.setOrdering(ordering);
         ArrayList<String> windowList = Window.getResult(ordering, window, tree.ordering.get(level));
         Node min = tree.generateG(expression);
+        min.bOrdering = tree.getOrdering();
         int minSize = op.count(min);
         for (String i : windowList ) {
             tree.setOrdering(i);
             Node root = tree.generateG(expression);
             int count = op.count(root);
+            //System.out.println(i+" - "+count);
             if(count < minSize){
                 minSize = count;
                 min = root;

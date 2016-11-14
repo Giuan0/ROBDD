@@ -138,7 +138,7 @@ public class Tree{
 
 // metodos que pegam os caminhos#######################################################
 
-	public ArrayList<String> allPaths(int num){
+	public ArrayList<String> allPaths(int num){// number of paths given the number of variables
 		ArrayList<String> paths = new ArrayList<String>();
 		for (int i=0;i<(Math.pow(2,num));i++){
 	    	int mask = (int)(Math.pow(2,num));
@@ -158,10 +158,10 @@ public class Tree{
 	}
 
 
-	public String reducedPath(Node root, String path){
+	public String reducedPath(Node root, String path){  //gets a path and reduce it(ex? 00011001 => 000)
 		Node aux = root;
 		String reducedPath = "";
-		for (int i = 0;i<=path.length() ;i++ ) {
+		for (int i = 0;i<path.length() ;i++ ) {
 			if(aux.right == null){
 				reducedPath+=" ("+aux.data+")";
 				return reducedPath;
@@ -173,13 +173,13 @@ public class Tree{
 				reducedPath+="0";
 				aux = aux.right;			}
 		}
-		return reducedPath;
+		return reducedPath+=" ("+aux.data+")";
 	}
 
 
 
 
-	public ArrayList<String> allReducedPaths(Node root){
+	public ArrayList<String> allReducedPaths(Node root, ArrayList<String> ordering){
 		ArrayList<String> allPaths = allPaths(ordering.size());
 		ArrayList<String> allReducedPaths = new ArrayList<String>();
 		for (int i = 0; i<allPaths.size() ;i++ ) {
@@ -196,6 +196,15 @@ public class Tree{
 		return allReducedPaths;
 
 	}
+
+	public String getMinPath(Node root, ArrayList<String> ordering){
+		ArrayList<String> allPaths = this.allReducedPaths(root, ordering);
+		for (String i : allPaths) {
+			if(i.charAt(i.length()-2) == '1')
+				return i;
+		}
+		return "";
+	} 
 
 //#######################################################################
 

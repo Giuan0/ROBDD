@@ -3,15 +3,29 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class Main{
 	public static void main(String[] args) {
+		ROBDD robdd = new ROBDD("(x1+x2)*(x3+x4)*(x5+x6)");
+		robdd.size();
+		
+		System.out.println(robdd.getPath("10"));
+		
+
+	}
+	
+}
+
+
+/*
+public class Main{
+	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
 		Operations op = new Operations();
 		Ordering order = new Ordering();
 
-		String expression = "((x1*x2) + (x3*x4) + (x5*x6) + (x7*x8))";
+		String expression = "(x1+x2)*(x3+x4)";
 		Tree t = new Tree();
 		//t.setOrdering("x[1]<x[3]<x[5]<x[7]<x[9]<x[11]<x[13]<x[15]<x[17]<x[19]<x[21]<x[23]<x[2]<x[4]<x[6]<x[8]<x[10]<x[12]<x[14]<x[16]<x[18]<x[20]<x[22]<x[24]<");
-		t.setOrdering(order.weighting(expression));
-
+		//t.setOrdering(order.weighting(expression));
+		t.setOrdering("x1<x2<x3<x4<");
 		//Node root = order.getMin(expression);
 		//Node root = t.generateG(expression);
 		
@@ -20,7 +34,7 @@ public class Main{
 		//System.out.println(t.getOrdering());
 		//System.out.println("size = "+op.count(root));
 		//System.out.println(root.expression);
-		Node root = order.window(expression,t.getOrdering(),4,2);//SF1<SF2<SG1<SG2<SG3<SG4<
+		Node root = order.window(expression,t.getOrdering(),3,1);//SF1<SF2<SG1<SG2<SG3<SG4<
 		for (String i : t.allReducedPaths(root) ) {
 			System.out.println(i);	
 		}
@@ -33,9 +47,13 @@ public class Main{
 	
 }
 
+*/
+
+
 //(∼(SF1 ∨ SF2) ∧ ∼((SG1 ∧ (SG2 ∨ SG3)) ∨ (SG2 ∧ SG3)))
 
 //(!(SF1 + SF2) * !((SG1 * (SG2 + SG3)) + (SG2 * SG3)))*(SG3+SG4)
+//(∼(SF1∨SF2)∧∼((SG1∧(SG2vSG3))∨(SG2∧SG3)))⟩.
 
 //(!(SF1+SF2)*!((SG1*(SG2+SG3))+(SG2*SG3)))
 
