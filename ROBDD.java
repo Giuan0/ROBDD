@@ -104,8 +104,31 @@ public class ROBDD{
 	public ArrayList<String> getAllPaths(){
 		return treeOps.allReducedPaths(this.root, this.ordering);
 	}
+	public ArrayList<String> getAllPaths_Maped(){
+		ArrayList<String> mapedPaths = new ArrayList<String>();
+		getAllPaths().forEach(path->{
+			mapedPaths.add(mapPath(path));
+		});
+		return mapedPaths;
+	}
 	public String getMinPath(){
 		return treeOps.getMinPath(this.root, this.ordering);
+	}
+	private String mapPath(String path){
+		String mapedPath = "";
+		Node aux = this.root;
+		for (int i = 0;i<path.length()-4 ;i++) {
+			mapedPath+= aux.ID+":"+path.charAt(i)+",";
+			if(path.charAt(i) == '0'){
+				aux = aux.right;
+			}else{
+				aux = aux.left;
+			}
+		}
+		return mapedPath.substring(0, mapedPath.length()-1)+" - "+path.substring(path.length()-3,path.length());
+	}
+	public String getMinPath_Maped(){
+		return this.mapPath(getMinPath());
 	}
 	public String getPath(String path){//alterar
 		return treeOps.reducedPath(this.root, path);
