@@ -84,6 +84,13 @@ public class ROBDD{
 		return logicalOps.count(this.root);
 	}
 
+	public void setMin(){
+		this.root = orderingsOps.getMin(this.expression);
+		this.setOrdering(root.bOrdering);
+	}
+	public ArrayList<String> getAllResults(){
+		return orderingsOps.getAllResults(this.expression);
+	}
 	public void setWindowOrdering(int window, int level){
 		this.root = orderingsOps.window(this.expression, this.getOrdering(), window, level );
 		this.setOrdering(root.bOrdering);

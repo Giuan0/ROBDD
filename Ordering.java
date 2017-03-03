@@ -27,8 +27,8 @@ public class Ordering{
 
         for (String i : orderings ) {
             tree.setOrdering(i);
-            int n = op.count(root);
             root = tree.generateG(expression);
+            int n = op.count(root);
             if(n<min){
                 min = n;
                 minN = root;
@@ -37,6 +37,26 @@ public class Ordering{
         }
         orderings.clear();
         return minN;
+    }
+
+    public ArrayList<String> getAllResults(String expression){
+        ArrayList<String> results = new ArrayList<String>();
+        tree = new Tree();
+        Node root = tree.generateG(expression);
+        root.bOrdering = tree.getOrdering();
+        Node minN = root;
+        int min = op.count(root);
+        perm(tree.ordering.toArray(new String[tree.ordering.size()]),tree.ordering.size());
+        int count = 0;
+
+        for (String i : orderings ) {
+            tree.setOrdering(i);
+            root = tree.generateG(expression);
+            int n = op.count(root);
+            results.add(i+" ("+n+")");
+        }
+        orderings.clear();
+        return results;
     }
 
     public Node window(String expression, String ordering, int window, int level){
