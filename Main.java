@@ -3,12 +3,29 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class Main{
 	public static void main(String[] args) {
-		ROBDD robdd = new ROBDD("(!(SF1 + SF2) * !((SG1 * (SG2 + SG3)) + (SG2 * SG3)))*(SG3+SG4)");
-		//robdd.setOrdering("SF2<SG3<SG4<SG1<SG2<SF1<");
+		String run   = "(!(stop)*(start+run))";
+		String motor = run+"*(sensor_proximo+level_sensor)";
+		String luz_cheio = "((level_sensor+luz_cheio)*sensor_proximo)";
+		String solenoid  = "((sensor_proximo*!(level_sensor))*!"+luz_cheio+")";
+
+		String [] expressionsNames = {"run", "motor", "luz_cheio", "solenoid"};
+		String [] expressions = {run, motor, luz_cheio, solenoid};
+
+		ROBDD robdd;
+		for(int i = 0;i<4;i++){
+			System.out.println();
+			System.out.println(expressionsNames[i]+" - ("+expressions[i]+")");
+			robdd = new ROBDD(expressions[i]);
+			//robdd.setMin();
+			robdd.getAllPaths_Maped().forEach(result->{
+				System.out.println(result);
+			});
+			System.out.println("ITE: "+robdd.getITE());
+		}
 		
-		robdd.getAllResults().forEach(result->{
-			System.out.println(result);
-		});
+		//robdd.setOrdering("SF2<SG3<SG4<SG1<SG2<SF1<");
+		//robdd.setMin();
+		
 
 
 		/*

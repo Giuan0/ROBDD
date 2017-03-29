@@ -29,6 +29,7 @@ public class Ordering{
             tree.setOrdering(i);
             root = tree.generateG(expression);
             int n = op.count(root);
+            //System.out.println(n);
             if(n<min){
                 min = n;
                 minN = root;

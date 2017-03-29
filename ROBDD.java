@@ -114,7 +114,9 @@ public class ROBDD{
 	public ArrayList<String> getAllPaths_Maped(){
 		ArrayList<String> mapedPaths = new ArrayList<String>();
 		getAllPaths().forEach(path->{
-			mapedPaths.add(mapPath(path));
+			String mapPath = mapPath(path);
+			if(!mapedPaths.contains(mapPath))
+				mapedPaths.add(mapPath);
 		});
 		return mapedPaths;
 	}
@@ -125,6 +127,8 @@ public class ROBDD{
 		String mapedPath = "";
 		Node aux = this.root;
 		for (int i = 0;i<path.length()-4 ;i++) {
+			if(aux.ID.equals("1")||aux.ID.equals("0"))
+				return mapedPath.substring(0, mapedPath.length()-1)+" - "+path.substring(path.length()-3,path.length());;
 			mapedPath+= aux.ID+":"+path.charAt(i)+",";
 			if(path.charAt(i) == '0'){
 				aux = aux.right;

@@ -171,7 +171,9 @@ public class Tree{
 				aux = aux.left;
 			}else{
 				reducedPath+="0";
-				aux = aux.right;			}
+				aux = aux.right;
+			}
+			reducedPath = path;
 		}
 		return reducedPath+=" ("+aux.data+")";
 	}
