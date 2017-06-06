@@ -3,24 +3,34 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class Main{
 	public static void main(String[] args) {
-		String run   = "(!(stop)*(start+run))";
-		String motor = run+"*(sensor_proximo+level_sensor)";
-		String luz_cheio = "((level_sensor+luz_cheio)*sensor_proximo)";
-		String solenoid  = "((sensor_proximo*!(level_sensor))*!"+luz_cheio+")";
-
-		String [] expressionsNames = {"run", "motor", "luz_cheio", "solenoid"};
-		String [] expressions = {run, motor, luz_cheio, solenoid};
+		//String run   = "(!(stop)*start*!(complete))";
+		//String embalador = "(sensor_prox2 * !(timer))";
+		//String motor = "("+run+"*!(sensor_prox2)+timer)) * (!(sensor_tipo) * (sensor_prox + level_sensor))";
+		//String luz_cheio = "((level_sensor+luz_cheio)*sensor_proximo)";
+		//String solenoide_luzenchendo = "sensor_prox * !(level_sensor) * !("+luz_cheio+")";
+		//String motor = run+"*(sensor_proximo+level_sensor)";
+		//String solenoid  = "((sensor_proximo*!(level_sensor))*!"+luz_cheio+")";
+		String m3 = "(!(stop+bemerg)*bstart*(!(sp1)+lbe)*!(alarme_cx_cheia))";
+		String ms = "("+m3+"*ste)";
+		String m1 = m3+"*"+ms+"*(!(sp1)+lbe)";
+		String m2 = m3+"*!"+ms;
+		String eg1 = "sp1*sn1";
+		String [] expressionsNames = {"m3", "ms", "m1", "m2", "eg1"};
+		String [] expressions = {m3, ms, m1, m2, eg1};
 
 		ROBDD robdd;
-		for(int i = 0;i<4;i++){
+		for(int i = 0;i<expressions.length;i++){
 			System.out.println();
 			System.out.println(expressionsNames[i]+" - ("+expressions[i]+")");
 			robdd = new ROBDD(expressions[i]);
+			robdd.setWeightingOrdering();
 			//robdd.setMin();
+			robdd.setWindowOrdering(4, 1);
+			System.out.println("ITE: "+robdd.getITE()+" - size: "+robdd.size());
+			System.out.println("Ordering:"+robdd.getOrdering());
 			robdd.getAllPaths_Maped().forEach(result->{
 				System.out.println(result);
 			});
-			System.out.println("ITE: "+robdd.getITE());
 		}
 		
 		//robdd.setOrdering("SF2<SG3<SG4<SG1<SG2<SF1<");

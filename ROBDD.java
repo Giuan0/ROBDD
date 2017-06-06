@@ -4,29 +4,36 @@ import java.util.Scanner;
 public class ROBDD{
 	
 	private Node root;
-	private ArrayList<String> ordering = new ArrayList<String>();
+	private ArrayList<String> ordering;
 	private String expression;
 
 	private Tree treeOps;
-	private Operations logicalOps = new Operations();
-	private Ordering orderingsOps = new Ordering();
+	private Operations logicalOps;
+	private Ordering orderingsOps;
 
 
 	public ROBDD(){
-		treeOps         = new Tree();
+		this.init();
 	}
 
 	public ROBDD(String expression){
-		treeOps         = new Tree();
+		this.init();
 		this.expression = expression;
 		this.root       = treeOps.generateG(expression); 
 		this.setOrdering(treeOps.getOrdering());
 	}
 
 	public ROBDD(String expression, String ordering ){
-		treeOps         = new Tree();
+		this.init();
 		this.expression = expression;
 		this.setOrdering(ordering);
+	}
+
+	public void init(){
+		this.treeOps    = new Tree();
+		this.ordering   = new ArrayList<String>();
+		this.logicalOps = new Operations();
+		this.orderingsOps = new Ordering();
 	}
 
 	public String getExpression(){
@@ -69,9 +76,11 @@ public class ROBDD{
 			}else
 				var += ordering.charAt(i);
 		}
-		this.ordering = order;
 
-		this.treeOps.setOrdering(this.getOrdering());
+		//System.out.println("set :"+ordering);
+		this.init();
+		this.ordering = order;
+		this.treeOps.setOrdering(ordering);
 
 		this.root       = treeOps.generateG(this.expression);
     }
@@ -86,7 +95,10 @@ public class ROBDD{
 
 	public void setMin(){
 		this.root = orderingsOps.getMin(this.expression);
-		this.setOrdering(root.bOrdering);
+		//this.treeOps.setOrdering(this.root.bOrdering);
+
+		//System.out.println(logicalOps.count(treeOps.generateG(this.expression)));
+		this.setOrdering(this.root.bOrdering);
 	}
 	public ArrayList<String> getAllResults(){
 		return orderingsOps.getAllResults(this.expression);
@@ -105,6 +117,7 @@ public class ROBDD{
 		this.setOrdering(this.root.bOrdering);
 	}
 	public void setWeightingOrdering(){
+		this.init();
 		this.setOrdering(this.orderingsOps.weighting(this.expression));
 		//System.out.println(this.getOrdering()); //alguma coisa errada com o m[etodo weighting,
 	}

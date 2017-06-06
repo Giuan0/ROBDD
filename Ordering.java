@@ -21,15 +21,16 @@ public class Ordering{
         Node root = tree.generateG(expression);
         root.bOrdering = tree.getOrdering();
         Node minN = root;
-        int min = op.count(root);
+        int min = op.count(root)+10;
         perm(tree.ordering.toArray(new String[tree.ordering.size()]),tree.ordering.size());
         int count = 0;
-
+        //System.out.println(root.bOrdering);
+        //System.out.println(min);
         for (String i : orderings ) {
             tree.setOrdering(i);
             root = tree.generateG(expression);
             int n = op.count(root);
-            //System.out.println(n);
+
             if(n<min){
                 min = n;
                 minN = root;
@@ -37,6 +38,8 @@ public class Ordering{
             }
         }
         orderings.clear();
+        //System.out.println(minN.bOrdering);
+        //System.out.println(op.count(minN));
         return minN;
     }
 
