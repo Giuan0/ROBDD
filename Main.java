@@ -5,6 +5,8 @@ public class Main{
 	public static void main(String[] args) {
 
 		// ( ( !BSTOP and !BEMERG and BSTART ) and ( (!SP1 or LBE) or ( !SP1 xor LBE ) ) and !ALRME_CX_CHEIA and STG and (!SP1 or LBE) )
+		
+		//testar - ((!(BSTOP)*!(BEMERG)*BSTART)*(!SP1+LBE)*!(ALRME_CX_CHEIA)*STG*(!(SP1)+LBE))
 		ROBDD robdd = new ROBDD("((!(BSTOP)*!(BEMERG)*BSTART)*((!(SP1)+LBE)+(!(!(!(SP1)+LBE)+!(!(SP1)+!(LBE))))*!(ALRME_CX_CHEIA)*STG*(!(SP1)+LBE)))");
 		robdd.setWeightingOrdering();
 		robdd.setWindowOrdering(3,2);
