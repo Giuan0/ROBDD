@@ -30,7 +30,7 @@ public class Ordering{
             tree.setOrdering(i);
             root = tree.generateG(expression);
             int n = op.count(root);
-
+            //System.out.println("{ordering:\""+i+"\", size:"+n+"},");
             if(n<min){
                 min = n;
                 minN = root;
@@ -73,7 +73,7 @@ public class Ordering{
             tree.setOrdering(i);
             Node root = tree.generateG(expression);
             int count = op.count(root);
-            //System.out.println(i+" - "+count);
+            // System.out.println(i+" - "+count);
             if(count < minSize){
                 minSize = count;
                 min = root;
